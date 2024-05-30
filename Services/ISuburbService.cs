@@ -1,9 +1,9 @@
 public interface ISuburbService
 {
-  Task <IEnumerable<Suburb>> GetAllSuburbs();
-  Task <IEnumerable<Suburb>> GetSuburbsByCityId(Guid? cityId);
-  Task <Suburb?> GetSuburbById(Guid id);
-  Task CreateSuburb(Suburb suburb);
-  Task UpdateSuburb(Guid id, Suburb suburb);
+  Task <IEnumerable<SuburbDTO>> GetAllSuburbs();
+  Task <IEnumerable<SuburbDTO>> GetSuburbsByCityId(Guid? cityId);
+  Task <SuburbDetailDTO?> GetSuburbById(Guid id);
+  Task CreateSuburb(SuburbDTO suburb);
+  Task UpdateSuburb(Guid id, SuburbDTO suburb);
   Task DeleteSuburb(Guid id);
 }

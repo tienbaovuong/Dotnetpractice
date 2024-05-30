@@ -8,5 +8,5 @@ public class House
 
   // Reference fields
   public Guid StreetId { get; set; }
-  public required Street Street { get; set; }
+  public Street Street { get; set; }
 }

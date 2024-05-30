@@ -1,9 +1,9 @@
 public interface IHouseService
 {
-  Task <IEnumerable<House>> GetAllHouses();
-  Task <IEnumerable<House>> GetHousesByStreetId(Guid? streetId);
-  Task <House?> GetHouseById(Guid id);
-  Task CreateHouse(House House);
-  Task UpdateHouse(Guid id, House House);
+  Task <IEnumerable<HouseDTO>> GetAllHouses();
+  Task <IEnumerable<HouseDTO>> GetHousesByStreetId(Guid? streetId);
+  Task <HouseDetailDTO?> GetHouseById(Guid id);
+  Task CreateHouse(HouseDTO House);
+  Task UpdateHouse(Guid id, HouseDTO House);
   Task DeleteHouse(Guid id);
 }

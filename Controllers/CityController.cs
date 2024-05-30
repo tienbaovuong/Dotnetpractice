@@ -11,14 +11,14 @@ public class CityController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<City>>> GetAllCities()
+  public async Task<ActionResult<IEnumerable<CityDTO>>> GetAllCities()
   {
     var cities = await _cityService.GetAllCities();
     return Ok(cities);
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<City>> GetCityById(Guid id)
+  public async Task<ActionResult<CityDetailDTO>> GetCityById(Guid id)
   {
     var city = await _cityService.GetCityById(id);
     if (city == null)
@@ -29,7 +29,7 @@ public class CityController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateCity([FromBody] City city)
+  public async Task<IActionResult> CreateCity([FromBody] CityDTO city)
   {
     if (city == null)
     {
@@ -41,7 +41,7 @@ public class CityController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<IActionResult> UpdateCity(Guid id, [FromBody] City city)
+  public async Task<IActionResult> UpdateCity(Guid id, [FromBody] CityDTO city)
   {
     if (city == null)
     {

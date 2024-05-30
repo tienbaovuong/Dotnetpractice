@@ -11,22 +11,22 @@ public class StreetController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<Street>>> GetAllStreets([FromQuery] Guid? cityId)
+  public async Task<ActionResult<IEnumerable<StreetDTO>>> GetAllStreets([FromQuery] Guid? suburbId)
   {
-    if (cityId == null)
+    if (suburbId == null)
     {
       var Streets = await _streetService.GetAllStreets();
       return Ok(Streets);
     }
     else
     {
-      var Streets = await _streetService.GetStreetsBySuburbId(cityId);
+      var Streets = await _streetService.GetStreetsBySuburbId(suburbId);
       return Ok(Streets);
     }
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<Street>> GetStreetById(Guid id)
+  public async Task<ActionResult<StreetDetailDTO>> GetStreetById(Guid id)
   {
     var Street = await _streetService.GetStreetById(id);
     if (Street == null)
@@ -37,7 +37,7 @@ public class StreetController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateStreet([FromBody] Street street)
+  public async Task<IActionResult> CreateStreet([FromBody] StreetDTO street)
   {
     if (street == null)
     {
@@ -49,7 +49,7 @@ public class StreetController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<IActionResult> UpdateStreet(Guid id, [FromBody] Street street)
+  public async Task<IActionResult> UpdateStreet(Guid id, [FromBody] StreetDTO street)
   {
     if (street == null)
     {

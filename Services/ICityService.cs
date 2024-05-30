@@ -1,8 +1,8 @@
 public interface ICityService
 {
-  Task <IEnumerable<City>> GetAllCities();
-  Task <City?> GetCityById(Guid id);
-  Task CreateCity(City city);
-  Task UpdateCity(Guid id, City city);
+  Task <IEnumerable<CityDTO>> GetAllCities();
+  Task <CityDetailDTO?> GetCityById(Guid id);
+  Task CreateCity(CityDTO city);
+  Task UpdateCity(Guid id, CityDTO city);
   Task DeleteCity(Guid id);
 }

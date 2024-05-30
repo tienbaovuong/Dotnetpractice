@@ -6,6 +6,6 @@ public class Street
 
   // Reference fields
   public Guid SuburbId { get; set; }
-  public required Suburb Suburb { get; set; }
+  public Suburb Suburb { get; set; }
   public List<House> Houses { get; set; } = [];
 }

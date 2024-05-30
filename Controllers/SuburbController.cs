@@ -11,7 +11,7 @@ public class SuburbController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<Suburb>>> GetAllSuburbs([FromQuery] Guid? cityId)
+  public async Task<ActionResult<IEnumerable<SuburbDTO>>> GetAllSuburbs([FromQuery] Guid? cityId)
   {
     if (cityId == null)
     {
@@ -26,7 +26,7 @@ public class SuburbController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<Suburb>> GetSuburbById(Guid id)
+  public async Task<ActionResult<SuburbDetailDTO>> GetSuburbById(Guid id)
   {
     var suburb = await _suburbService.GetSuburbById(id);
     if (suburb == null)
@@ -37,7 +37,7 @@ public class SuburbController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateSuburb([FromBody] Suburb suburb)
+  public async Task<IActionResult> CreateSuburb([FromBody] SuburbDTO suburb)
   {
     if (suburb == null)
     {
@@ -49,7 +49,7 @@ public class SuburbController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<IActionResult> UpdateSuburb(Guid id, [FromBody] Suburb suburb)
+  public async Task<IActionResult> UpdateSuburb(Guid id, [FromBody] SuburbDTO suburb)
   {
     if (suburb == null)
     {

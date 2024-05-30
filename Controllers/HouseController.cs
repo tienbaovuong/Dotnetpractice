@@ -11,22 +11,22 @@ public class HouseController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<House>>> GetAllHouses([FromQuery] Guid? cityId)
+  public async Task<ActionResult<IEnumerable<HouseDTO>>> GetAllHouses([FromQuery] Guid? streetId)
   {
-    if (cityId == null)
+    if (streetId == null)
     {
       var Houses = await _houseService.GetAllHouses();
       return Ok(Houses);
     }
     else
     {
-      var Houses = await _houseService.GetHousesByStreetId(cityId);
+      var Houses = await _houseService.GetHousesByStreetId(streetId);
       return Ok(Houses);
     }
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<House>> GetHouseById(Guid id)
+  public async Task<ActionResult<HouseDetailDTO>> GetHouseById(Guid id)
   {
     var House = await _houseService.GetHouseById(id);
     if (House == null)
@@ -37,7 +37,7 @@ public class HouseController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateHouse([FromBody] House house)
+  public async Task<IActionResult> CreateHouse([FromBody] HouseDTO house)
   {
     if (house == null)
     {
@@ -49,7 +49,7 @@ public class HouseController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<IActionResult> UpdateHouse(Guid id, [FromBody] House house)
+  public async Task<IActionResult> UpdateHouse(Guid id, [FromBody] HouseDTO house)
   {
     if (house == null)
     {
