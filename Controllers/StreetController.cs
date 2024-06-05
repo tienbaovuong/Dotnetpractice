@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class StreetController : ControllerBase
@@ -36,6 +38,7 @@ public class StreetController : ControllerBase
     return Ok(Street);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPost]
   public async Task<IActionResult> CreateStreet([FromBody] StreetDTO street)
   {
@@ -48,6 +51,7 @@ public class StreetController : ControllerBase
     return CreatedAtAction(nameof(GetStreetById), new { id = street.Id }, street);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPut("{id}")]
   public async Task<IActionResult> UpdateStreet(Guid id, [FromBody] StreetDTO street)
   {
@@ -66,6 +70,7 @@ public class StreetController : ControllerBase
     return NoContent();
   }
 
+  [Authorize(Roles = "admin")]
   [HttpDelete("{id}")]
   public async Task<IActionResult> DeleteStreet(Guid id)
   {

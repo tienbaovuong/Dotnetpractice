@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CityController : ControllerBase
@@ -28,6 +30,7 @@ public class CityController : ControllerBase
     return Ok(city);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPost]
   public async Task<IActionResult> CreateCity([FromBody] CityDTO city)
   {
@@ -40,6 +43,7 @@ public class CityController : ControllerBase
     return CreatedAtAction(nameof(GetCityById), new { id = city.Id }, city);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPut("{id}")]
   public async Task<IActionResult> UpdateCity(Guid id, [FromBody] CityDTO city)
   {
@@ -58,6 +62,7 @@ public class CityController : ControllerBase
     return NoContent();
   }
 
+  [Authorize(Roles = "admin")]
   [HttpDelete("{id}")]
   public async Task<IActionResult> DeleteCity(Guid id)
   {
