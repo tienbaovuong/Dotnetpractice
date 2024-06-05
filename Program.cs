@@ -1,8 +1,23 @@
+using Auth0.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
+
+// Cookie configuration for HTTP to support cookies with SameSite=None
+builder.Services.ConfigureSameSiteNoneCookies();
+
+// Cookie configuration for HTTPS
+//  builder.Services.Configure<CookiePolicyOptions>(options =>
+//  {
+//     options.MinimumSameSitePolicy = SameSiteMode.None;
+//  });
+builder.Services.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = builder.Configuration["Auth0:Domain"];
+    options.ClientId = builder.Configuration["Auth0:ClientId"];
+});
 
 // Add database context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -16,6 +31,7 @@ builder.Services.AddScoped<IHouseService, HouseService>();
 
 // Add controllers
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 
 
 // Add swagger document generation
@@ -31,8 +47,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCookiePolicy();
 
+app.UseRouting();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
+
+// Default route
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
