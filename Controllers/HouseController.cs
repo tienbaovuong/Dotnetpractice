@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class HouseController : ControllerBase
@@ -36,6 +38,7 @@ public class HouseController : ControllerBase
     return Ok(House);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPost]
   public async Task<IActionResult> CreateHouse([FromBody] HouseDTO house)
   {
@@ -48,6 +51,7 @@ public class HouseController : ControllerBase
     return CreatedAtAction(nameof(GetHouseById), new { id = house.Id }, house);
   }
 
+  [Authorize(Roles = "admin")]
   [HttpPut("{id}")]
   public async Task<IActionResult> UpdateHouse(Guid id, [FromBody] HouseDTO house)
   {
@@ -66,6 +70,7 @@ public class HouseController : ControllerBase
     return NoContent();
   }
 
+  [Authorize(Roles = "admin")]
   [HttpDelete("{id}")]
   public async Task<IActionResult> DeleteHouse(Guid id)
   {
